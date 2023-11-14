@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    schema: google_sheets
+    database: salonso_dev_bronze_db
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+    
+    tables:
+      - name: budget
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: _row
+            data_type: number
+          - name: quantity
+            data_type: number
+          - name: month
+            data_type: date
+          - name: product_id
+            data_type: varchar
+          - name: _fivetran_synced
+            data_type: timestamp_tz
